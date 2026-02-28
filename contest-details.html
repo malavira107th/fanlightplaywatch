@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contest Details – FanLite Play</title>
+  <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="assets/images/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --black: #0a0a0a; --black2: #111111; --black3: #1a1a1a;
+      --red: #E8192C; --blue: #1565C0;
+      --white: #ffffff; --grey: #888888; --grey-light: #cccccc;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--black2); }
+    ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 3px; }
+
+    /* HEADER */
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(10,10,10,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(232,25,44,0.15); height: 70px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
+    .nav-logo img { height: 46px; width: auto; object-fit: contain; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey-light); transition: color 0.2s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--red); transition: width 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--red); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-auth { display: flex; align-items: center; gap: 12px; }
+    .btn-signin { padding: 8px 20px; border: 1.5px solid var(--red); border-radius: 4px; color: var(--red); font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; transition: all 0.2s; background: transparent; cursor: pointer; }
+    .btn-signin:hover { background: var(--red); color: var(--black); }
+    .btn-signup { padding: 8px 20px; background: linear-gradient(135deg, var(--red), var(--blue)); border: none; border-radius: 4px; color: var(--black); font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+    .btn-signup:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(232,25,44,0.3); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--red); border-radius: 2px; transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-nav { display: none; position: fixed; top: 70px; left: 0; right: 0; background: rgba(10,10,10,0.98); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(232,25,44,0.2); padding: 20px 24px 28px; z-index: 999; flex-direction: column; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { display: block; padding: 14px 0; font-size: 14px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey-light); border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s; }
+    .mobile-nav a:hover { color: var(--red); }
+    .mobile-nav .mobile-auth { display: flex; gap: 12px; margin-top: 20px; }
+    .mobile-nav .btn-signin, .mobile-nav .btn-signup { flex: 1; text-align: center; }
+
+    /* CONTENT WRAPPER */
+    .page-content { margin-top: 70px; max-width: 1200px; margin-left: auto; margin-right: auto; padding: 60px 40px 80px; }
+
+    /* BACK BUTTON */
+    .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--red); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 32px; transition: gap 0.2s; }
+    .back-link:hover { gap: 12px; }
+
+    /* MATCH HEADER */
+    .match-header { background: linear-gradient(135deg, var(--black2), var(--black3)); border: 1px solid rgba(232,25,44,0.15); border-radius: 16px; padding: 48px 40px; margin-bottom: 48px; text-align: center; position: relative; overflow: hidden; }
+    .match-header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--red), var(--blue), transparent); }
+    .match-tournament { font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; }
+    .match-title { font-family: 'Oswald', sans-serif; font-size: clamp(32px, 4vw, 48px); font-weight: 700; color: var(--white); margin-bottom: 16px; }
+    .match-title span { color: var(--red); }
+    .match-meta { display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; font-size: 14px; color: var(--grey-light); }
+    .meta-item { display: flex; align-items: center; gap: 6px; }
+    .meta-icon { font-size: 16px; }
+
+    /* TWO COLUMN LAYOUT */
+    .layout-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; margin-bottom: 48px; }
+
+    /* CONTEST INFO SECTION */
+    .contest-info { }
+    .section-title { font-family: 'Oswald', sans-serif; font-size: 24px; font-weight: 700; color: var(--white); margin-bottom: 24px; }
+    .section-title span { color: var(--red); }
+
+    /* INFO CARDS */
+    .info-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px; }
+    .info-card { background: var(--black2); border: 1px solid rgba(232,25,44,0.12); border-radius: 10px; padding: 20px; text-align: center; }
+    .info-card-label { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; }
+    .info-card-value { font-size: 18px; font-weight: 700; color: var(--white); }
+    .info-card-value.highlight { color: var(--red); }
+
+    /* RULES SECTION */
+    .rules-section { background: var(--black2); border: 1px solid rgba(232,25,44,0.12); border-radius: 12px; padding: 28px; margin-bottom: 32px; }
+    .rules-title { font-family: 'Oswald', sans-serif; font-size: 16px; font-weight: 700; color: var(--red); margin-bottom: 16px; }
+    .rules-list { list-style: none; }
+    .rules-list li { padding: 10px 0; font-size: 13px; color: var(--grey-light); line-height: 1.6; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; gap: 10px; }
+    .rules-list li:last-child { border-bottom: none; }
+    .rules-list li::before { content: '✓'; color: var(--red); font-weight: 700; flex-shrink: 0; }
+
+    /* SIDEBAR */
+    .sidebar { }
+    .sidebar-card { background: var(--black2); border: 1px solid rgba(232,25,44,0.15); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+    .sidebar-title { font-family: 'Oswald', sans-serif; font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 16px; }
+    .sidebar-title span { color: var(--red); }
+    .sidebar-stat { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px; }
+    .sidebar-stat:last-child { border-bottom: none; }
+    .sidebar-stat-label { color: var(--grey); }
+    .sidebar-stat-value { color: var(--red); font-weight: 700; }
+
+    /* CTA BUTTON */
+    .cta-button { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--red), var(--blue)); border: none; border-radius: 8px; color: var(--black); font-family: 'Oswald', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; box-shadow: 0 6px 24px rgba(232,25,44,0.3); margin-bottom: 12px; }
+    .cta-button:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(232,25,44,0.45); }
+
+    /* LEADERBOARD SECTION */
+    .leaderboard-section { background: var(--black2); border: 1px solid rgba(232,25,44,0.12); border-radius: 12px; padding: 28px; }
+    .leaderboard-title { font-family: 'Oswald', sans-serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 20px; }
+    .leaderboard-title span { color: var(--red); }
+    .leaderboard-table { width: 100%; border-collapse: collapse; }
+    .leaderboard-table thead { border-bottom: 2px solid rgba(232,25,44,0.2); }
+    .leaderboard-table th { padding: 12px 8px; text-align: left; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); }
+    .leaderboard-table td { padding: 14px 8px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px; color: var(--grey-light); }
+    .leaderboard-table tr:hover { background: rgba(232,25,44,0.05); }
+    .rank-badge { display: inline-block; width: 28px; height: 28px; background: rgba(232,25,44,0.1); border-radius: 50%; text-align: center; line-height: 28px; font-weight: 700; color: var(--red); }
+    .rank-1 { background: rgba(232,25,44,0.2); }
+    .username { color: var(--white); font-weight: 600; }
+    .xp-value { color: var(--red); font-weight: 700; }
+
+    /* SCROLL TO TOP */
+    .scroll-top-btn { position: fixed; bottom: 32px; right: 32px; width: 48px; height: 48px; background: linear-gradient(135deg, var(--red), var(--blue)); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(232,25,44,0.35); opacity: 0; pointer-events: none; transition: all 0.3s; z-index: 500; }
+    .scroll-top-btn.visible { opacity: 1; pointer-events: all; }
+    .scroll-top-btn:hover { transform: translateY(-3px); }
+    .scroll-top-btn svg { width: 20px; height: 20px; fill: var(--black); }
+
+    /* FOOTER */
+    footer { background: var(--black2); border-top: 1px solid rgba(232,25,44,0.12); padding: 56px 40px 32px; }
+    .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 1100px; margin: 0 auto 48px; }
+    .footer-col-title { font-size: 11px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+    .footer-col a { display: block; font-size: 13px; color: var(--grey); margin-bottom: 12px; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--red); }
+    .footer-auth { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+    .footer-auth .btn-signin, .footer-auth .btn-signup { width: 100%; text-align: center; display: block; }
+    .footer-disclaimer { max-width: 1100px; margin: 0 auto 28px; padding: 16px 20px; background: rgba(232,25,44,0.05); border: 1px solid rgba(232,25,44,0.2); border-radius: 6px; font-size: 12px; color: var(--grey); line-height: 1.7; text-align: center; }
+    .footer-disclaimer strong { color: var(--red); }
+    .footer-bottom { max-width: 1100px; margin: 0 auto; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom-left { display: flex; align-items: center; gap: 14px; }
+    .footer-logo { height: 36px; width: auto; }
+    .footer-copyright { font-size: 12px; color: var(--grey); }
+    .footer-email { font-size: 12px; color: var(--grey); transition: color 0.2s; }
+    .footer-email:hover { color: var(--red); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) { .page-content { padding: 40px 24px 60px; } .layout-grid { grid-template-columns: 1fr; } header { padding: 0 24px; } }
+    @media (max-width: 768px) { .nav-links, .nav-auth { display: none; } .hamburger { display: flex; } .info-cards { grid-template-columns: 1fr; } .match-header { padding: 32px 24px; } footer { padding: 40px 20px 24px; } .footer-grid { grid-template-columns: 1fr 1fr; } .scroll-top-btn { bottom: 20px; right: 20px; width: 42px; height: 42px; } .match-meta { gap: 12px; } }
+    @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } .match-title { font-size: 28px; } }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-logo"><img src="assets/images/logo.png" alt="FanLite Play" /></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="browse-contests.html">Browse</a></li>
+      <li><a href="how-to-play.html">How to Play</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-auth" id="navAuth">
+      <a href="login.html" class="btn-signin">Sign In</a>
+      <a href="signup.html" class="btn-signup">Sign Up</a>
+    </div>
+    <div class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </header>
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="index.html">Home</a>
+    <a href="browse-contests.html">Browse</a>
+    <a href="how-to-play.html">How to Play</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <div class="mobile-auth" id="mobileAuth">
+      <a href="login.html" class="btn-signin">Sign In</a>
+      <a href="signup.html" class="btn-signup">Sign Up</a>
+    </div>
+  </nav>
+
+  <!-- CONTENT -->
+  <div class="page-content">
+    <a href="browse-contests.html" class="back-link">← Back to Contests</a>
+
+    <!-- MATCH HEADER -->
+    <div class="match-header" id="matchHeader">
+      <!-- Populated by JavaScript -->
+    </div>
+
+    <!-- MAIN LAYOUT -->
+    <div class="layout-grid">
+      <!-- LEFT: CONTEST INFO -->
+      <div class="contest-info">
+        <h2 class="section-title">Contest <span>Details</span></h2>
+
+        <!-- INFO CARDS -->
+        <div class="info-cards" id="infoCards">
+          <!-- Populated by JavaScript -->
+        </div>
+
+        <!-- RULES SECTION -->
+        <div class="rules-section">
+          <div class="rules-title">📋 Contest Rules</div>
+          <ul class="rules-list">
+            <li>Select exactly 11 players for your team</li>
+            <li>Maximum 3 players from one team allowed</li>
+            <li>Choose 1 Captain (2x points multiplier)</li>
+            <li>Choose 1 Vice-Captain (1.5x points multiplier)</li>
+            <li>Lineup must be locked before match starts</li>
+            <li>Points awarded based on live match performance</li>
+            <li>Final ranking determined by total Leaderboard XP</li>
+            <li>All contests are 100% free to join</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- RIGHT: SIDEBAR -->
+      <div class="sidebar">
+        <!-- CONTEST STATS -->
+        <div class="sidebar-card">
+          <div class="sidebar-title">Contest <span>Stats</span></div>
+          <div class="sidebar-stat">
+            <span class="sidebar-stat-label">Total Joined</span>
+            <span class="sidebar-stat-value" id="totalJoined">0</span>
+          </div>
+          <div class="sidebar-stat">
+            <span class="sidebar-stat-label">Entry Fee</span>
+            <span class="sidebar-stat-value">₹0</span>
+          </div>
+          <div class="sidebar-stat">
+            <span class="sidebar-stat-label">Max Reward</span>
+            <span class="sidebar-stat-value" id="maxReward">500 XP</span>
+          </div>
+          <div class="sidebar-stat">
+            <span class="sidebar-stat-label">Match Status</span>
+            <span class="sidebar-stat-value" id="matchStatus">Upcoming</span>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <button class="cta-button" onclick="buildTeam()">Build Team & Join</button>
+        <a href="browse-contests.html" class="cta-button" style="background: var(--black2); border: 1px solid rgba(232,25,44,0.3); color: var(--red); text-decoration: none; display: flex; align-items: center; justify-content: center; box-shadow: none;">Browse More</a>
+
+        <!-- DISCLAIMER -->
+        <div style="background: rgba(232,25,44,0.05); border: 1px solid rgba(232,25,44,0.15); border-radius: 8px; padding: 14px; margin-top: 16px; font-size: 11px; color: var(--grey); line-height: 1.6; text-align: center;">
+          <strong style="color: var(--red);">100% Free</strong><br />No entry fees, no deposits, no hidden charges.
+        </div>
+      </div>
+    </div>
+
+    <!-- LEADERBOARD SECTION -->
+    <div class="leaderboard-section">
+      <h2 class="leaderboard-title">Current <span>Leaderboard</span></h2>
+      <table class="leaderboard-table">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Username</th>
+            <th>Leaderboard XP</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboardBody">
+          <!-- Populated by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-disclaimer">
+      <strong>Disclaimer:</strong> FanLite Play is a 100% Free entertainment platform. This platform is intended for entertainment purposes only.
+    </div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-col-title">Quick Links</div>
+        <a href="index.html">Home</a>
+        <a href="browse-contests.html">Browse</a>
+        <a href="how-to-play.html">How to Play</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Legal</div>
+        <a href="terms.html">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">My Account</div>
+        <div class="footer-auth" id="footerAuth">
+          <a href="login.html" class="btn-signin">Sign In</a>
+          <a href="signup.html" class="btn-signup">Sign Up</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <img src="assets/images/logo.png" alt="FanLite Play" class="footer-logo" />
+        <span class="footer-copyright">&copy; 2026 FanLite Play. All rights reserved.</span>
+      </div>
+      <a href="mailto:support@fanliteplay.com" class="footer-email">support@fanliteplay.com</a>
+    </div>
+  </footer>
+
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">
+    <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+  </button>
+
+  <script>
+    window.scrollTo({ top: 0, behavior: 'instant' });
+
+    // Contest Data
+    const contests = [
+      {
+        id: 1,
+        tournament: 'ICC Men\'s T20 World Cup 2026',
+        match: 'India vs South Africa',
+        date: 'Feb 22, 2026',
+        time: '7:00 PM IST',
+        venue: 'Narendra Modi Stadium, Ahmedabad',
+        reward: '500 Leaderboard XP',
+        participants: 4500,
+        status: 'active',
+        stage: 'super8'
+      },
+      {
+        id: 2,
+        tournament: 'ICC Men\'s T20 World Cup 2026',
+        match: 'India vs Zimbabwe',
+        date: 'Feb 26, 2026',
+        time: '7:00 PM IST',
+        venue: 'MA Chidambaram Stadium, Chennai',
+        reward: '500 Leaderboard XP',
+        participants: 3800,
+        status: 'active',
+        stage: 'super8'
+      },
+      {
+        id: 3,
+        tournament: 'ICC Men\'s T20 World Cup 2026',
+        match: 'India vs West Indies',
+        date: 'Mar 1, 2026',
+        time: '7:00 PM IST',
+        venue: 'Eden Gardens, Kolkata',
+        reward: '500 Leaderboard XP',
+        participants: 5200,
+        status: 'active',
+        stage: 'super8'
+      },
+      {
+        id: 4,
+        tournament: 'ICC Men\'s T20 World Cup 2026',
+        match: 'India vs TBD',
+        date: 'Mar 4, 2026',
+        time: 'TBD',
+        venue: 'TBD',
+        reward: '750 Leaderboard XP',
+        participants: 0,
+        status: 'locked',
+        stage: 'semifinal'
+      },
+      {
+        id: 5,
+        tournament: 'ICC Men\'s T20 World Cup 2026',
+        match: 'India vs TBD',
+        date: 'Mar 8, 2026',
+        time: 'TBD',
+        venue: 'Narendra Modi Stadium, Ahmedabad',
+        reward: '1000 Leaderboard XP',
+        participants: 0,
+        status: 'locked',
+        stage: 'final'
+      }
+    ];
+
+    // Get contest ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const contestId = parseInt(urlParams.get('id')) || 1;
+    const contest = contests.find(c => c.id === contestId);
+
+    if (!contest) {
+      document.getElementById('matchHeader').innerHTML = '<p style="color: var(--grey);">Contest not found</p>';
+    } else {
+      // Populate match header
+      document.getElementById('matchHeader').innerHTML = `
+        <div class="match-tournament">${contest.stage.toUpperCase()}</div>
+        <div class="match-title"><span>${contest.match.split(' vs ')[0]}</span> vs ${contest.match.split(' vs ')[1]}</div>
+        <div class="match-meta">
+          <div class="meta-item"><span class="meta-icon">📅</span> <span>${contest.date}</span></div>
+          <div class="meta-item"><span class="meta-icon">🕖</span> <span>${contest.time}</span></div>
+          <div class="meta-item"><span class="meta-icon">📍</span> <span>${contest.venue}</span></div>
+        </div>
+      `;
+
+      // Populate info cards
+      document.getElementById('infoCards').innerHTML = `
+        <div class="info-card">
+          <div class="info-card-label">Entry Fee</div>
+          <div class="info-card-value highlight">₹0</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">Reward</div>
+          <div class="info-card-value highlight">${contest.reward}</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">Tournament</div>
+          <div class="info-card-value">${contest.stage.charAt(0).toUpperCase() + contest.stage.slice(1)}</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">Status</div>
+          <div class="info-card-value">${contest.status === 'active' ? 'Active' : 'Locked'}</div>
+        </div>
+      `;
+
+      // Update sidebar
+      document.getElementById('totalJoined').textContent = contest.participants.toLocaleString();
+      document.getElementById('maxReward').textContent = contest.reward;
+      document.getElementById('matchStatus').textContent = contest.status === 'active' ? 'Upcoming' : 'Locked';
+    }
+
+    // Populate leaderboard (mock data)
+    const leaderboardData = [
+      { rank: 1, username: 'CricketKing92', xp: 485 },
+      { rank: 2, username: 'FantasyMaster', xp: 472 },
+      { rank: 3, username: 'TeamBuilder01', xp: 468 },
+      { rank: 4, username: 'VictorySeeker', xp: 451 },
+      { rank: 5, username: 'MatchExpert', xp: 445 },
+      { rank: 6, username: 'ScoreMaster', xp: 438 },
+      { rank: 7, username: 'Batsman99', xp: 425 },
+      { rank: 8, username: 'BowlerPro', xp: 418 },
+      { rank: 9, username: 'FielderStar', xp: 405 },
+      { rank: 10, username: 'CricketFan77', xp: 392 }
+    ];
+
+    const leaderboardBody = document.getElementById('leaderboardBody');
+    leaderboardData.forEach(entry => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td><span class="rank-badge rank-${entry.rank}">${entry.rank}</span></td>
+        <td><span class="username">${entry.username}</span></td>
+        <td><span class="xp-value">${entry.xp} XP</span></td>
+      `;
+      leaderboardBody.appendChild(row);
+    });
+
+    function buildTeam() {
+      const user = localStorage.getItem('flp_user');
+      if (!user) {
+        alert('Please log in first to build your team');
+        window.location.href = 'login.html';
+        return;
+      }
+      // Redirect to team building page (to be built)
+      window.location.href = `team-builder.html?contestId=${contestId}`;
+    }
+
+    // Scroll to top button
+    window.addEventListener('scroll', () => {
+      document.querySelector('header').style.borderBottomColor = window.scrollY > 20 ? 'rgba(232,25,44,0.3)' : 'rgba(232,25,44,0.15)';
+      document.getElementById('scrollTopBtn').classList.toggle('visible', window.scrollY > 300);
+    });
+
+    function toggleMobileNav() {
+      document.getElementById('mobileNav').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
+    }
+
+    function updateAuthState() {
+      const user = localStorage.getItem('flp_user');
+      if (user) {
+        const html = `<a href="dashboard.html" class="btn-signup">Dashboard</a><button class="btn-signin" onclick="logout()">Logout</button>`;
+        ['navAuth','mobileAuth','footerAuth'].forEach(id => { const el = document.getElementById(id); if(el) el.innerHTML = html; });
+      }
+    }
+
+    function logout() { localStorage.removeItem('flp_user'); window.location.href = 'index.html'; }
+
+    updateAuthState();
+  </script>
+</body>
+</html>

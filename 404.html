@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 - Page Not Found – FanLite Play</title>
+  <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="assets/images/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --black: #0a0a0a; --black2: #111111; --black3: #1a1a1a;
+      --red: #E8192C; --blue: #1565C0;
+      --white: #ffffff; --grey: #888888; --grey-light: #cccccc;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--black2); }
+    ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 3px; }
+
+    /* HEADER */
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(10,10,10,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(232,25,44,0.15); height: 70px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
+    .nav-logo img { height: 46px; width: auto; object-fit: contain; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey-light); transition: color 0.2s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--red); transition: width 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--red); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-auth { display: flex; align-items: center; gap: 12px; }
+    .btn-signin { padding: 8px 20px; border: 1.5px solid var(--red); border-radius: 4px; color: var(--red); font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; transition: all 0.2s; background: transparent; cursor: pointer; }
+    .btn-signin:hover { background: var(--red); color: var(--black); }
+    .btn-signup { padding: 8px 20px; background: linear-gradient(135deg, var(--red), var(--blue)); border: none; border-radius: 4px; color: var(--black); font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+    .btn-signup:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(232,25,44,0.3); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--red); border-radius: 2px; transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-nav { display: none; position: fixed; top: 70px; left: 0; right: 0; background: rgba(10,10,10,0.98); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(232,25,44,0.2); padding: 20px 24px 28px; z-index: 999; flex-direction: column; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { display: block; padding: 14px 0; font-size: 14px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey-light); border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s; }
+    .mobile-nav a:hover { color: var(--red); }
+    .mobile-nav .mobile-auth { display: flex; gap: 12px; margin-top: 20px; }
+    .mobile-nav .btn-signin, .mobile-nav .btn-signup { flex: 1; text-align: center; }
+
+    /* ERROR CONTAINER */
+    .error-wrapper { margin-top: 70px; min-height: calc(100vh - 70px); display: flex; align-items: center; justify-content: center; padding: 40px 20px; background: linear-gradient(135deg, var(--black) 0%, var(--black2) 100%); }
+    .error-card { text-align: center; max-width: 600px; }
+
+    /* ERROR CODE */
+    .error-code { font-family: 'Oswald', sans-serif; font-size: 120px; font-weight: 900; background: linear-gradient(135deg, var(--red), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 16px; line-height: 1; text-shadow: 0 0 30px rgba(232,25,44,0.2); }
+
+    /* ERROR TITLE */
+    .error-title { font-family: 'Oswald', sans-serif; font-size: 32px; font-weight: 700; color: var(--white); margin-bottom: 12px; }
+    .error-title span { color: var(--red); }
+
+    /* ERROR MESSAGE */
+    .error-message { font-size: 16px; color: var(--grey-light); margin-bottom: 32px; line-height: 1.8; }
+
+    /* ERROR BUTTONS */
+    .error-buttons { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 40px; }
+    .btn-primary { padding: 14px 32px; background: linear-gradient(135deg, var(--red), var(--blue)); border: none; border-radius: 6px; color: var(--black); font-family: 'Oswald', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 20px rgba(232,25,44,0.25); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(232,25,44,0.4); }
+    .btn-secondary { padding: 14px 32px; border: 1.5px solid var(--red); border-radius: 6px; color: var(--red); font-family: 'Oswald', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; background: transparent; cursor: pointer; transition: all 0.3s; }
+    .btn-secondary:hover { background: var(--red); color: var(--black); }
+
+    /* ERROR ILLUSTRATION */
+    .error-illustration { margin: 40px 0; }
+    .error-icon { font-size: 80px; animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+
+    /* FOOTER */
+    footer { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10,10,10,0.95); border-top: 1px solid rgba(232,25,44,0.1); padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-size: 12px; color: var(--grey); }
+    footer > div { display: flex; align-items: center; gap: 16px; }
+    footer a { color: var(--grey); transition: color 0.2s; }
+    footer a:hover { color: var(--red); }
+    footer span { color: rgba(255,255,255,0.1); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) { .nav-links, .nav-auth { display: none; } .hamburger { display: flex; } .error-code { font-size: 80px; } .error-title { font-size: 24px; } .error-buttons { flex-direction: column; } .error-buttons a { width: 100%; text-align: center; } }
+    @media (max-width: 480px) { footer { flex-direction: column; gap: 12px; padding: 12px 20px; font-size: 11px; } footer > div { width: 100%; text-align: center; } }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-logo"><img src="assets/images/logo.png" alt="FanLite Play" /></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="browse-contests.html">Browse</a></li>
+      <li><a href="how-to-play.html">How to Play</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-auth" id="navAuth">
+      <a href="login.html" class="btn-signin">Sign In</a>
+      <a href="signup.html" class="btn-signup">Sign Up</a>
+    </div>
+    <div class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </header>
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="index.html">Home</a>
+    <a href="browse-contests.html">Browse</a>
+    <a href="how-to-play.html">How to Play</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <div class="mobile-auth" id="mobileAuth">
+      <a href="login.html" class="btn-signin">Sign In</a>
+      <a href="signup.html" class="btn-signup">Sign Up</a>
+    </div>
+  </nav>
+
+  <!-- ERROR CONTAINER -->
+  <div class="error-wrapper">
+    <div class="error-card">
+      <div class="error-illustration">
+        <div class="error-icon">⚠️</div>
+      </div>
+
+      <div class="error-code">404</div>
+      <h1 class="error-title">Page <span>Not Found</span></h1>
+      <p class="error-message">
+        Oops! The page you're looking for doesn't exist or has been moved. Don't worry, we're here to help you get back on track.
+      </p>
+
+      <div class="error-buttons">
+        <a href="index.html" class="btn-primary">← Back to Home</a>
+        <a href="browse-contests.html" class="btn-secondary">Browse Contests</a>
+      </div>
+
+      <p style="font-size: 12px; color: var(--grey); margin-top: 20px;">
+        If you believe this is a mistake, please <a href="contact.html" style="color: var(--red);">contact us</a>.
+      </p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <a href="index.html">Home</a>
+      <span>|</span>
+      <a href="terms.html">Terms</a>
+      <span>|</span>
+      <a href="privacy.html">Privacy</a>
+    </div>
+    <span>&copy; 2026 FanLite Play. All rights reserved.</span>
+  </footer>
+
+  <script>
+    function toggleMobileNav() {
+      document.getElementById('mobileNav').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
+    }
+
+    // Update nav buttons based on login status
+    function updateNavButtons() {
+      const user = localStorage.getItem('flp_user');
+      const navAuth = document.getElementById('navAuth');
+      const mobileAuth = document.getElementById('mobileAuth');
+
+      if (user) {
+        navAuth.innerHTML = '<a href="dashboard.html" class="btn-signin">Dashboard</a><a href="#" onclick="logout()" class="btn-signup">Logout</a>';
+        mobileAuth.innerHTML = '<a href="dashboard.html" class="btn-signin">Dashboard</a><a href="#" onclick="logout()" class="btn-signup">Logout</a>';
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('flp_user');
+      window.location.href = 'index.html';
+    }
+
+    updateNavButtons();
+  </script>
+</body>
+</html>

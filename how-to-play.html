@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Play – FanLite Play</title>
+  <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="assets/images/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --black: #0a0a0a; --black2: #111111; --black3: #1a1a1a;
+      --red: #E8192C; --blue: #1565C0;
+      --white: #ffffff; --grey: #888888; --grey-light: #cccccc;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--black2); }
+    ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 3px; }
+
+    /* HEADER */
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(10,10,10,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(232,25,44,0.15); height: 70px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
+    .nav-logo img { height: 46px; width: auto; object-fit: contain; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey-light); transition: color 0.2s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--red); transition: width 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--red); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-auth { display: flex; align-items: center; gap: 12px; }
+    .btn-signin { padding: 8px 20px; border: 1.5px solid var(--red); border-radius: 4px; color: var(--red); font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; transition: all 0.2s; background: transparent; cursor: pointer; }
+    .btn-signin:hover { background: var(--red); color: var(--black); }
+    .btn-signup { padding: 8px 20px; background: linear-gradient(135deg, var(--red), var(--blue)); border: none; border-radius: 4px; color: var(--black); font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+    .btn-signup:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(232,25,44,0.3); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--red); border-radius: 2px; transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-nav { display: none; position: fixed; top: 70px; left: 0; right: 0; background: rgba(10,10,10,0.98); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(232,25,44,0.2); padding: 20px 24px 28px; z-index: 999; flex-direction: column; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { display: block; padding: 14px 0; font-size: 14px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey-light); border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s; }
+    .mobile-nav a:hover { color: var(--red); }
+    .mobile-nav .mobile-auth { display: flex; gap: 12px; margin-top: 20px; }
+    .mobile-nav .btn-signin, .mobile-nav .btn-signup { flex: 1; text-align: center; }
+
+    /* PAGE BANNER */
+    .page-banner { margin-top: 70px; background: linear-gradient(135deg, var(--black2) 0%, var(--black3) 100%); border-bottom: 1px solid rgba(232,25,44,0.15); padding: 60px 40px 50px; text-align: center; position: relative; overflow: hidden; }
+    .page-banner::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--red), var(--blue), transparent); }
+    .page-banner-label { font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px; }
+    .page-banner h1 { font-family: 'Oswald', sans-serif; font-size: clamp(30px, 5vw, 52px); font-weight: 700; color: var(--white); margin-bottom: 14px; }
+    .page-banner h1 span { color: var(--red); }
+    .page-banner p { font-size: 15px; color: var(--grey-light); max-width: 600px; margin: 0 auto; line-height: 1.7; }
+
+    /* LAYOUT */
+    .page-layout { display: grid; grid-template-columns: 1fr 260px; gap: 40px; max-width: 1200px; margin: 0 auto; padding: 60px 40px 80px; align-items: start; }
+
+    /* STEPS SECTION */
+    .steps-section { margin-bottom: 64px; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; }
+    .section-title { font-family: 'Oswald', sans-serif; font-size: clamp(24px, 3vw, 36px); font-weight: 700; color: var(--white); margin-bottom: 40px; }
+    .section-title span { color: var(--red); }
+
+    .steps-list { display: flex; flex-direction: column; gap: 0; }
+    .step-item { display: grid; grid-template-columns: 80px 1fr; gap: 0; position: relative; }
+    .step-item:not(:last-child) .step-line { display: block; }
+    .step-left { display: flex; flex-direction: column; align-items: center; }
+    .step-number {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--red), var(--blue));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700;
+      color: var(--black); flex-shrink: 0; position: relative; z-index: 1;
+    }
+    .step-line { width: 2px; flex: 1; min-height: 40px; background: linear-gradient(to bottom, var(--blue), rgba(21,101,192,0.1)); margin: 4px 0; }
+    .step-content { padding: 0 0 48px 24px; }
+    .step-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--blue); margin-bottom: 8px; }
+    .step-content h3 { font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+    .step-content p { font-size: 14px; color: var(--grey-light); line-height: 1.85; margin-bottom: 12px; }
+    .step-content ul { list-style: none; margin: 8px 0; }
+    .step-content ul li { font-size: 13px; color: var(--grey-light); padding: 5px 0 5px 18px; position: relative; line-height: 1.6; }
+    .step-content ul li::before { content: '›'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+
+    /* SCORING SECTION */
+    .scoring-section { margin-bottom: 64px; scroll-margin-top: 90px; }
+    .scoring-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; }
+    .scoring-card { background: var(--black2); border: 1px solid rgba(232,25,44,0.12); border-radius: 10px; padding: 24px 20px; }
+    .scoring-card-title { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); margin-bottom: 16px; }
+    .score-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px; }
+    .score-row:last-child { border-bottom: none; }
+    .score-action { color: var(--grey-light); }
+    .score-pts { font-weight: 700; color: var(--red); }
+    .score-pts.negative { color: #ff6b6b; }
+
+    /* RULES SECTION */
+    .rules-section { margin-bottom: 64px; scroll-margin-top: 90px; }
+    .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+    .rule-card { background: var(--black2); border: 1px solid rgba(232,25,44,0.1); border-radius: 10px; padding: 20px; display: flex; gap: 16px; align-items: flex-start; }
+    .rule-icon { width: 40px; height: 40px; background: rgba(232,25,44,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; }
+    .rule-text h4 { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+    .rule-text p { font-size: 12px; color: var(--grey); line-height: 1.6; }
+
+    /* HIGHLIGHT BOX */
+    .highlight-box { background: rgba(232,25,44,0.06); border: 1px solid rgba(232,25,44,0.2); border-radius: 10px; padding: 24px 28px; margin: 32px 0; }
+    .highlight-box h3 { font-family: 'Oswald', sans-serif; font-size: 18px; color: var(--red); margin-bottom: 10px; }
+    .highlight-box p { font-size: 14px; color: var(--grey-light); line-height: 1.8; }
+
+    /* CTA SECTION */
+    .cta-section { text-align: center; background: linear-gradient(135deg, var(--black2), var(--black3)); border: 1px solid rgba(232,25,44,0.15); border-radius: 14px; padding: 48px 40px; margin-bottom: 40px; }
+    .cta-section h2 { font-family: 'Oswald', sans-serif; font-size: 32px; color: var(--white); margin-bottom: 12px; }
+    .cta-section h2 span { color: var(--red); }
+    .cta-section p { font-size: 14px; color: var(--grey-light); margin-bottom: 28px; }
+    .cta-btn { display: inline-block; padding: 16px 48px; background: linear-gradient(135deg, var(--red), var(--blue)); color: var(--black); font-family: 'Oswald', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 6px; transition: all 0.3s; box-shadow: 0 6px 24px rgba(232,25,44,0.3); }
+    .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(232,25,44,0.45); }
+
+    /* SIDEBAR */
+    .toc-sidebar { position: sticky; top: 90px; }
+    .toc-box { background: var(--black2); border: 1px solid rgba(232,25,44,0.15); border-radius: 10px; padding: 24px 20px; margin-bottom: 20px; }
+    .toc-title { font-size: 11px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--blue); margin-bottom: 18px; }
+    .toc-list { list-style: none; }
+    .toc-list li { margin-bottom: 4px; }
+    .toc-list a { display: block; font-size: 12px; color: var(--grey); padding: 7px 10px; border-radius: 5px; transition: all 0.2s; line-height: 1.4; }
+    .toc-list a:hover, .toc-list a.active { background: rgba(232,25,44,0.08); color: var(--red); }
+    .toc-divider { height: 1px; background: rgba(232,25,44,0.1); margin: 16px 0; }
+    .free-badge { background: rgba(232,25,44,0.08); border: 1px solid rgba(232,25,44,0.2); border-radius: 8px; padding: 16px; text-align: center; }
+    .free-badge-title { font-size: 22px; font-weight: 900; color: var(--red); font-family: 'Oswald', sans-serif; margin-bottom: 6px; }
+    .free-badge-sub { font-size: 11px; color: var(--grey); line-height: 1.5; }
+
+    /* SCROLL TO TOP */
+    .scroll-top-btn { position: fixed; bottom: 32px; right: 32px; width: 48px; height: 48px; background: linear-gradient(135deg, var(--red), var(--blue)); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(232,25,44,0.35); opacity: 0; pointer-events: none; transition: all 0.3s; z-index: 500; }
+    .scroll-top-btn.visible { opacity: 1; pointer-events: all; }
+    .scroll-top-btn:hover { transform: translateY(-3px); }
+    .scroll-top-btn svg { width: 20px; height: 20px; fill: var(--black); }
+
+    /* FOOTER */
+    footer { background: var(--black2); border-top: 1px solid rgba(232,25,44,0.12); padding: 56px 40px 32px; }
+    .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 1100px; margin: 0 auto 48px; }
+    .footer-col-title { font-size: 11px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+    .footer-col a { display: block; font-size: 13px; color: var(--grey); margin-bottom: 12px; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--red); }
+    .footer-auth { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+    .footer-auth .btn-signin, .footer-auth .btn-signup { width: 100%; text-align: center; display: block; }
+    .footer-disclaimer { max-width: 1100px; margin: 0 auto 28px; padding: 16px 20px; background: rgba(232,25,44,0.05); border: 1px solid rgba(232,25,44,0.2); border-radius: 6px; font-size: 12px; color: var(--grey); line-height: 1.7; text-align: center; }
+    .footer-disclaimer strong { color: var(--red); }
+    .footer-bottom { max-width: 1100px; margin: 0 auto; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom-left { display: flex; align-items: center; gap: 14px; }
+    .footer-logo { height: 36px; width: auto; }
+    .footer-copyright { font-size: 12px; color: var(--grey); }
+    .footer-email { font-size: 12px; color: var(--grey); transition: color 0.2s; }
+    .footer-email:hover { color: var(--red); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) { .page-layout { grid-template-columns: 1fr; padding: 40px 24px 60px; } .toc-sidebar { position: static; } header { padding: 0 24px; } }
+    @media (max-width: 768px) { .nav-links, .nav-auth { display: none; } .hamburger { display: flex; } .page-banner { padding: 50px 24px 40px; } footer { padding: 40px 20px 24px; } .footer-grid { grid-template-columns: 1fr 1fr; } .scoring-grid, .rules-grid { grid-template-columns: 1fr; } .step-item { grid-template-columns: 60px 1fr; } .scroll-top-btn { bottom: 20px; right: 20px; width: 42px; height: 42px; } }
+    @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } .cta-section { padding: 32px 20px; } }
+
+    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-logo"><img src="assets/images/logo.png" alt="FanLite Play" /></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="browse-contests.html">Browse</a></li>
+      <li><a href="how-to-play.html" class="active">How to Play</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-auth" id="navAuth">
+      <a href="login.html" class="btn-signin">Sign In</a>
+      <a href="signup.html" class="btn-signup">Sign Up</a>
+    </div>
+    <div class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </header>
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="index.html">Home</a>
+    <a href="browse-contests.html">Browse</a>
+    <a href="how-to-play.html">How to Play</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <div class="mobile-auth" id="mobileAuth">
+      <a href="login.html" class="btn-signin">Sign In</a>
+      <a href="signup.html" class="btn-signup">Sign Up</a>
+    </div>
+  </nav>
+
+  <!-- PAGE BANNER -->
+  <div class="page-banner">
+    <p class="page-banner-label">Get Started</p>
+    <h1>How to <span>Play</span></h1>
+    <p>Everything you need to know to get started on FanLite Play — India's new world of free cricket entertainment. Simple, social, and 100% free.</p>
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="page-layout">
+    <main>
+
+      <!-- STEPS -->
+      <div class="steps-section fade-up" id="sec-steps">
+        <div class="section-label">Your Journey</div>
+        <div class="section-title">5 Simple <span>Steps</span> to Get Started</div>
+
+        <div class="steps-list">
+
+          <div class="step-item">
+            <div class="step-left">
+              <div class="step-number">1</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-content">
+              <div class="step-tag">Step One</div>
+              <h3>Create Your Free Account</h3>
+              <p>Sign up on FanLite Play in under 60 seconds. All you need is a valid email address and a username. No payment details, no credit card, no deposits — ever. Your account is completely free to create and free to use.</p>
+              <ul>
+                <li>Enter your name, email, and choose a username</li>
+                <li>Verify your email address</li>
+                <li>Set up your profile and you are ready to go</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-left">
+              <div class="step-number">2</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-content">
+              <div class="step-tag">Step Two</div>
+              <h3>Browse Upcoming Contests</h3>
+              <p>Explore all upcoming cricket matches and entertainment contests available on the platform. Each contest shows you the match details, number of participants, and the leaderboard structure. Browse freely — there is no cost to look around.</p>
+              <ul>
+                <li>View all live and upcoming cricket matches</li>
+                <li>Filter by match type — Test, ODI, T20</li>
+                <li>See how many users have already joined each contest</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-left">
+              <div class="step-number">3</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-content">
+              <div class="step-tag">Step Three</div>
+              <h3>Pick Your Playing XI &amp; Join</h3>
+              <p>Select your 11 players from the available squad for the match. Use player statistics, recent form, and match conditions to make your selections. Assign a Captain and Vice-Captain for bonus points. Once you are happy with your lineup, join the contest — completely free.</p>
+              <ul>
+                <li>Choose from Batters, Bowlers, All-Rounders, and Wicket-Keepers</li>
+                <li>Follow the selection rules (minimum players per category)</li>
+                <li>Assign Captain (2x points multiplier) and Vice-Captain (1.5x multiplier)</li>
+                <li>You can create and save multiple lineups per match</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-left">
+              <div class="step-number">4</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-content">
+              <div class="step-tag">Step Four</div>
+              <h3>Track Live Scores &amp; Points</h3>
+              <p>Once the match begins, watch your players earn points in real time based on their on-field performance. Every run, wicket, catch, and milestone contributes to your total score. Follow the live match feed and see how your lineup stacks up against other participants.</p>
+              <ul>
+                <li>Real-time point updates as the match progresses</li>
+                <li>Live leaderboard showing your current rank</li>
+                <li>Detailed breakdown of points per player</li>
+                <li>Match commentary and key highlights</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-left">
+              <div class="step-number">5</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-content">
+              <div class="step-tag">Step Five</div>
+              <h3>Climb the Leaderboard &amp; Earn Glory</h3>
+              <p>After the match ends, final scores are tallied and the leaderboard is updated. Climb the ranks, earn badges and achievements, and build your reputation as the ultimate cricket entertainment enthusiast on FanLite Play. All glory, all free.</p>
+              <ul>
+                <li>Contest leaderboard — ranked within a specific match contest</li>
+                <li>Global leaderboard — ranked across all users on the platform</li>
+                <li>Seasonal leaderboard — ranked across an entire cricket season</li>
+                <li>Earn exclusive badges and achievement milestones</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SCORING SYSTEM -->
+      <div class="scoring-section fade-up" id="sec-scoring">
+        <div class="section-label">Points System</div>
+        <div class="section-title">How <span>Points</span> Are Calculated</div>
+        <p style="font-size:14px;color:var(--grey-light);line-height:1.8;margin-bottom:8px;">Points are awarded based on real on-field performances during the match. The better your selected players perform, the higher your score. Here is a general overview of the points system:</p>
+
+        <div class="scoring-grid">
+          <div class="scoring-card">
+            <div class="scoring-card-title">Batting Points</div>
+            <div class="score-row"><span class="score-action">Run scored</span><span class="score-pts">+1 pt</span></div>
+            <div class="score-row"><span class="score-action">Boundary (4)</span><span class="score-pts">+1 pt</span></div>
+            <div class="score-row"><span class="score-action">Six (6)</span><span class="score-pts">+2 pts</span></div>
+            <div class="score-row"><span class="score-action">Half Century (50)</span><span class="score-pts">+8 pts</span></div>
+            <div class="score-row"><span class="score-action">Century (100)</span><span class="score-pts">+16 pts</span></div>
+            <div class="score-row"><span class="score-action">Duck (0 runs)</span><span class="score-pts negative">-2 pts</span></div>
+          </div>
+          <div class="scoring-card">
+            <div class="scoring-card-title">Bowling Points</div>
+            <div class="score-row"><span class="score-action">Wicket taken</span><span class="score-pts">+25 pts</span></div>
+            <div class="score-row"><span class="score-action">Maiden over</span><span class="score-pts">+8 pts</span></div>
+            <div class="score-row"><span class="score-action">3-Wicket haul</span><span class="score-pts">+4 pts bonus</span></div>
+            <div class="score-row"><span class="score-action">5-Wicket haul</span><span class="score-pts">+8 pts bonus</span></div>
+            <div class="score-row"><span class="score-action">LBW / Bowled</span><span class="score-pts">+8 pts bonus</span></div>
+          </div>
+          <div class="scoring-card">
+            <div class="scoring-card-title">Fielding Points</div>
+            <div class="score-row"><span class="score-action">Catch taken</span><span class="score-pts">+8 pts</span></div>
+            <div class="score-row"><span class="score-action">Stumping</span><span class="score-pts">+12 pts</span></div>
+            <div class="score-row"><span class="score-action">Run-out (direct)</span><span class="score-pts">+12 pts</span></div>
+            <div class="score-row"><span class="score-action">Run-out (indirect)</span><span class="score-pts">+6 pts</span></div>
+            <div class="score-row"><span class="score-action">3 catches in match</span><span class="score-pts">+4 pts bonus</span></div>
+          </div>
+          <div class="scoring-card">
+            <div class="scoring-card-title">Multipliers</div>
+            <div class="score-row"><span class="score-action">Captain selection</span><span class="score-pts">2× all points</span></div>
+            <div class="score-row"><span class="score-action">Vice-Captain</span><span class="score-pts">1.5× all points</span></div>
+            <div class="score-row"><span class="score-action">Playing XI bonus</span><span class="score-pts">+4 pts</span></div>
+            <div class="score-row"><span class="score-action">Man of the Match</span><span class="score-pts">+10 pts</span></div>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <h3>Important Note on Points</h3>
+          <p>All points on FanLite Play are purely for entertainment and leaderboard ranking purposes. They carry absolutely no monetary value and cannot be redeemed, transferred, or exchanged for any goods, services, or prizes of any kind. This is a 100% free entertainment platform.</p>
+        </div>
+      </div>
+
+      <!-- RULES -->
+      <div class="rules-section fade-up" id="sec-rules">
+        <div class="section-label">Platform Rules</div>
+        <div class="section-title">Key <span>Rules</span> to Know</div>
+
+        <div class="rules-grid">
+          <div class="rule-card">
+            <div class="rule-icon">🔒</div>
+            <div class="rule-text">
+              <h4>Lineup Lock Time</h4>
+              <p>Your lineup is locked at the official match start time. No changes can be made after the toss or match begins.</p>
+            </div>
+          </div>
+          <div class="rule-card">
+            <div class="rule-icon">👥</div>
+            <div class="rule-text">
+              <h4>Selection Rules</h4>
+              <p>Your Playing XI must include at least 1 Wicket-Keeper, 3 Batters, 3 Bowlers, and 1 All-Rounder. Maximum 7 players from one team.</p>
+            </div>
+          </div>
+          <div class="rule-card">
+            <div class="rule-icon">🏆</div>
+            <div class="rule-text">
+              <h4>One Account Only</h4>
+              <p>Each user is permitted one account only. Multiple accounts are strictly prohibited and will result in permanent suspension.</p>
+            </div>
+          </div>
+          <div class="rule-card">
+            <div class="rule-icon">📋</div>
+            <div class="rule-text">
+              <h4>Multiple Lineups</h4>
+              <p>You may create and enter multiple different lineups per match contest to diversify your engagement.</p>
+            </div>
+          </div>
+          <div class="rule-card">
+            <div class="rule-icon">⚠️</div>
+            <div class="rule-text">
+              <h4>Match Cancellation</h4>
+              <p>If a match is cancelled, abandoned, or reduced to fewer than 10 overs per side, the contest may be voided.</p>
+            </div>
+          </div>
+          <div class="rule-card">
+            <div class="rule-icon">🎯</div>
+            <div class="rule-text">
+              <h4>Fair Play</h4>
+              <p>Any attempt to manipulate scores, use bots, or exploit platform bugs will result in immediate account termination.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-section fade-up" id="sec-cta">
+        <h2>Ready to Join the <span>Zone?</span></h2>
+        <p>Create your free account today and start enjoying cricket entertainment with your loved ones.</p>
+        <a href="signup.html" class="cta-btn">Join Free — It's 100% Free</a>
+      </div>
+
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="toc-sidebar">
+      <div class="toc-box">
+        <div class="toc-title">On This Page</div>
+        <ul class="toc-list">
+          <li><a href="#sec-steps">5 Steps to Get Started</a></li>
+          <li><a href="#sec-scoring">Points System</a></li>
+          <li><a href="#sec-rules">Key Rules</a></li>
+          <li><a href="#sec-cta">Join FanLite Play</a></li>
+        </ul>
+        <div class="toc-divider"></div>
+        <div class="free-badge">
+          <div class="free-badge-title">100% FREE</div>
+          <div class="free-badge-sub">No entry fees. No deposits.<br />No prizes. Pure entertainment.</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-disclaimer">
+      <strong>Disclaimer:</strong> FanLite Play is a 100% Free entertainment platform. This platform is intended for entertainment purposes only.
+    </div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-col-title">Quick Links</div>
+        <a href="index.html">Home</a>
+        <a href="browse-contests.html">Browse</a>
+        <a href="how-to-play.html">How to Play</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Legal</div>
+        <a href="terms.html">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">My Account</div>
+        <div class="footer-auth" id="footerAuth">
+          <a href="login.html" class="btn-signin">Sign In</a>
+          <a href="signup.html" class="btn-signup">Sign Up</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <img src="assets/images/logo.png" alt="FanLite Play" class="footer-logo" />
+        <span class="footer-copyright">&copy; 2026 FanLite Play. All rights reserved.</span>
+      </div>
+      <a href="mailto:support@fanliteplay.com" class="footer-email">support@fanliteplay.com</a>
+    </div>
+  </footer>
+
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">
+    <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+  </button>
+
+  <script>
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    window.addEventListener('scroll', () => {
+      document.querySelector('header').style.borderBottomColor = window.scrollY > 20 ? 'rgba(232,25,44,0.3)' : 'rgba(232,25,44,0.15)';
+      document.getElementById('scrollTopBtn').classList.toggle('visible', window.scrollY > 300);
+      const sections = document.querySelectorAll('[id^="sec-"]');
+      const links = document.querySelectorAll('.toc-list a');
+      let cur = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + cur));
+    });
+    function toggleMobileNav() {
+      document.getElementById('mobileNav').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
+    }
+    const obs = new IntersectionObserver(e => e.forEach(x => { if (x.isIntersecting) x.target.classList.add('visible'); }), { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+    function updateAuthState() {
+      const user = localStorage.getItem('flp_user');
+      if (user) {
+        const html = `<a href="dashboard.html" class="btn-signup">Dashboard</a><button class="btn-signin" onclick="logout()">Logout</button>`;
+        ['navAuth','mobileAuth','footerAuth'].forEach(id => { const el = document.getElementById(id); if(el) el.innerHTML = html; });
+      }
+    }
+    function logout() { localStorage.removeItem('flp_user'); window.location.href = 'index.html'; }
+    updateAuthState();
+  </script>
+</body>
+</html>

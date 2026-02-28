@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us – FanLite Play</title>
+  <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="assets/images/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --black: #0a0a0a; --black2: #111111; --black3: #1a1a1a;
+      --red: #E8192C; --blue: #1565C0;
+      --white: #ffffff; --grey: #888888; --grey-light: #cccccc;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--black2); }
+    ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 3px; }
+
+    /* HEADER */
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(10,10,10,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(232,25,44,0.15); height: 70px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
+    .nav-logo img { height: 46px; width: auto; object-fit: contain; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey-light); transition: color 0.2s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--red); transition: width 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--red); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-auth { display: flex; align-items: center; gap: 12px; }
+    .btn-signin { padding: 8px 20px; border: 1.5px solid var(--red); border-radius: 4px; color: var(--red); font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; transition: all 0.2s; background: transparent; cursor: pointer; }
+    .btn-signin:hover { background: var(--red); color: var(--black); }
+    .btn-signup { padding: 8px 20px; background: linear-gradient(135deg, var(--red), var(--blue)); border: none; border-radius: 4px; color: var(--black); font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+    .btn-signup:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(232,25,44,0.3); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--red); border-radius: 2px; transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-nav { display: none; position: fixed; top: 70px; left: 0; right: 0; background: rgba(10,10,10,0.98); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(232,25,44,0.2); padding: 20px 24px 28px; z-index: 999; flex-direction: column; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { display: block; padding: 14px 0; font-size: 14px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey-light); border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s; }
+    .mobile-nav a:hover { color: var(--red); }
+    .mobile-nav .mobile-auth { display: flex; gap: 12px; margin-top: 20px; }
+    .mobile-nav .btn-signin, .mobile-nav .btn-signup { flex: 1; text-align: center; }
+
+    /* PAGE BANNER */
+    .page-banner { margin-top: 70px; background: linear-gradient(135deg, var(--black2) 0%, var(--black3) 100%); border-bottom: 1px solid rgba(232,25,44,0.15); padding: 70px 40px 60px; text-align: center; position: relative; overflow: hidden; }
+    .page-banner::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--red), var(--blue), transparent); }
+    .page-banner-label { font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px; }
+    .page-banner h1 { font-family: 'Oswald', sans-serif; font-size: clamp(30px, 5vw, 52px); font-weight: 700; color: var(--white); margin-bottom: 16px; }
+    .page-banner h1 span { color: var(--red); }
+    .page-banner p { font-size: 15px; color: var(--grey-light); max-width: 620px; margin: 0 auto; line-height: 1.75; }
+
+    /* CONTENT WRAPPER */
+    .page-content { max-width: 1100px; margin: 0 auto; padding: 70px 40px 80px; }
+
+    /* STORY SECTION */
+    .story-section { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; margin-bottom: 80px; }
+    .story-text .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px; }
+    .story-text h2 { font-family: 'Oswald', sans-serif; font-size: clamp(26px, 3vw, 38px); font-weight: 700; color: var(--white); margin-bottom: 24px; line-height: 1.25; }
+    .story-text h2 span { color: var(--red); }
+    .story-text p { font-size: 14px; color: var(--grey-light); line-height: 1.9; margin-bottom: 18px; }
+    .story-visual { display: flex; align-items: center; justify-content: center; }
+    .logo-display { width: 100%; max-width: 320px; aspect-ratio: 1; background: var(--black2); border: 1px solid rgba(232,25,44,0.15); border-radius: 20px; display: flex; align-items: center; justify-content: center; padding: 40px; position: relative; overflow: hidden; }
+    .logo-display::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(232,25,44,0.08) 0%, transparent 70%); }
+    .logo-display img { width: 100%; height: auto; object-fit: contain; position: relative; z-index: 1; }
+    .logo-tagline { text-align: center; margin-top: 16px; font-size: 12px; color: var(--grey); letter-spacing: 0.15em; text-transform: uppercase; }
+
+    /* MISSION SECTION */
+    .mission-section { background: linear-gradient(135deg, var(--black2), var(--black3)); border: 1px solid rgba(232,25,44,0.15); border-radius: 16px; padding: 52px 48px; margin-bottom: 80px; text-align: center; position: relative; overflow: hidden; }
+    .mission-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--red), var(--blue), transparent); }
+    .mission-label { font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blue); margin-bottom: 16px; }
+    .mission-section h2 { font-family: 'Oswald', sans-serif; font-size: clamp(26px, 3vw, 40px); font-weight: 700; color: var(--white); margin-bottom: 20px; }
+    .mission-section h2 span { color: var(--red); }
+    .mission-section p { font-size: 15px; color: var(--grey-light); line-height: 1.85; max-width: 780px; margin: 0 auto; }
+
+    /* VALUES SECTION */
+    .values-section { margin-bottom: 80px; }
+    .values-section .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; text-align: center; }
+    .values-section h2 { font-family: 'Oswald', sans-serif; font-size: clamp(24px, 3vw, 36px); font-weight: 700; color: var(--white); margin-bottom: 40px; text-align: center; }
+    .values-section h2 span { color: var(--red); }
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .value-card { background: var(--black2); border: 1px solid rgba(232,25,44,0.1); border-radius: 12px; padding: 32px 24px; text-align: center; transition: border-color 0.3s, transform 0.3s; }
+    .value-card:hover { border-color: rgba(232,25,44,0.35); transform: translateY(-4px); }
+    .value-icon { font-size: 36px; margin-bottom: 16px; }
+    .value-card h3 { font-family: 'Oswald', sans-serif; font-size: 18px; font-weight: 700; color: var(--red); margin-bottom: 10px; letter-spacing: 0.04em; }
+    .value-card p { font-size: 13px; color: var(--grey); line-height: 1.7; }
+
+    /* FREE PLEDGE SECTION */
+    .pledge-section { background: rgba(232,25,44,0.05); border: 1px solid rgba(232,25,44,0.25); border-radius: 16px; padding: 48px 40px; margin-bottom: 80px; display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: center; }
+    .pledge-badge { width: 100px; height: 100px; background: linear-gradient(135deg, var(--red), var(--blue)); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .pledge-badge-text { font-family: 'Oswald', sans-serif; font-size: 13px; font-weight: 700; color: var(--black); text-align: center; line-height: 1.3; text-transform: uppercase; }
+    .pledge-content .pledge-label { font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+    .pledge-content h2 { font-family: 'Oswald', sans-serif; font-size: clamp(22px, 2.5vw, 32px); font-weight: 700; color: var(--white); margin-bottom: 14px; }
+    .pledge-content h2 span { color: var(--red); }
+    .pledge-content p { font-size: 14px; color: var(--grey-light); line-height: 1.85; margin-bottom: 12px; }
+
+    /* COMPANY SECTION */
+    .company-section { margin-bottom: 80px; }
+    .company-section .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; }
+    .company-section h2 { font-family: 'Oswald', sans-serif; font-size: clamp(24px, 3vw, 36px); font-weight: 700; color: var(--white); margin-bottom: 28px; }
+    .company-section h2 span { color: var(--red); }
+    .company-card { background: var(--black2); border: 1px solid rgba(232,25,44,0.12); border-radius: 12px; padding: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .company-detail h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); margin-bottom: 8px; }
+    .company-detail p { font-size: 14px; color: var(--grey-light); line-height: 1.7; }
+
+    /* STATS SECTION */
+    .stats-section { margin-bottom: 80px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .stat-card { background: var(--black2); border: 1px solid rgba(232,25,44,0.1); border-radius: 12px; padding: 28px 20px; text-align: center; }
+    .stat-number { font-family: 'Oswald', sans-serif; font-size: 36px; font-weight: 700; color: var(--red); margin-bottom: 6px; }
+    .stat-label { font-size: 12px; color: var(--grey); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* CTA SECTION */
+    .cta-section { text-align: center; background: linear-gradient(135deg, var(--black2), var(--black3)); border: 1px solid rgba(232,25,44,0.15); border-radius: 14px; padding: 52px 40px; }
+    .cta-section h2 { font-family: 'Oswald', sans-serif; font-size: 32px; color: var(--white); margin-bottom: 12px; }
+    .cta-section h2 span { color: var(--red); }
+    .cta-section p { font-size: 14px; color: var(--grey-light); margin-bottom: 28px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+    .cta-btn { display: inline-block; padding: 16px 48px; background: linear-gradient(135deg, var(--red), var(--blue)); color: var(--black); font-family: 'Oswald', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 6px; transition: all 0.3s; box-shadow: 0 6px 24px rgba(232,25,44,0.3); }
+    .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(232,25,44,0.45); }
+
+    /* SCROLL TO TOP */
+    .scroll-top-btn { position: fixed; bottom: 32px; right: 32px; width: 48px; height: 48px; background: linear-gradient(135deg, var(--red), var(--blue)); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(232,25,44,0.35); opacity: 0; pointer-events: none; transition: all 0.3s; z-index: 500; }
+    .scroll-top-btn.visible { opacity: 1; pointer-events: all; }
+    .scroll-top-btn:hover { transform: translateY(-3px); }
+    .scroll-top-btn svg { width: 20px; height: 20px; fill: var(--black); }
+
+    /* FOOTER */
+    footer { background: var(--black2); border-top: 1px solid rgba(232,25,44,0.12); padding: 56px 40px 32px; }
+    .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 1100px; margin: 0 auto 48px; }
+    .footer-col-title { font-size: 11px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+    .footer-col a { display: block; font-size: 13px; color: var(--grey); margin-bottom: 12px; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--red); }
+    .footer-auth { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+    .footer-auth .btn-signin, .footer-auth .btn-signup { width: 100%; text-align: center; display: block; }
+    .footer-disclaimer { max-width: 1100px; margin: 0 auto 28px; padding: 16px 20px; background: rgba(232,25,44,0.05); border: 1px solid rgba(232,25,44,0.2); border-radius: 6px; font-size: 12px; color: var(--grey); line-height: 1.7; text-align: center; }
+    .footer-disclaimer strong { color: var(--red); }
+    .footer-bottom { max-width: 1100px; margin: 0 auto; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom-left { display: flex; align-items: center; gap: 14px; }
+    .footer-logo { height: 36px; width: auto; }
+    .footer-copyright { font-size: 12px; color: var(--grey); }
+    .footer-email { font-size: 12px; color: var(--grey); transition: color 0.2s; }
+    .footer-email:hover { color: var(--red); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) { .page-content { padding: 50px 24px 60px; } .story-section { grid-template-columns: 1fr; gap: 40px; } .story-visual { order: -1; } .logo-display { max-width: 220px; } .company-card { grid-template-columns: 1fr; } header { padding: 0 24px; } }
+    @media (max-width: 768px) { .nav-links, .nav-auth { display: none; } .hamburger { display: flex; } .page-banner { padding: 50px 24px 40px; } .values-grid { grid-template-columns: 1fr 1fr; } .stats-grid { grid-template-columns: 1fr 1fr; } .pledge-section { grid-template-columns: 1fr; text-align: center; } .pledge-badge { margin: 0 auto; } footer { padding: 40px 20px 24px; } .footer-grid { grid-template-columns: 1fr 1fr; } .scroll-top-btn { bottom: 20px; right: 20px; width: 42px; height: 42px; } .mission-section { padding: 36px 24px; } }
+    @media (max-width: 480px) { .values-grid { grid-template-columns: 1fr; } .stats-grid { grid-template-columns: 1fr 1fr; } .footer-grid { grid-template-columns: 1fr; } }
+
+    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-logo"><img src="assets/images/logo.png" alt="FanLite Play" /></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="browse-contests.html">Browse</a></li>
+      <li><a href="how-to-play.html">How to Play</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-auth" id="navAuth">
+      <a href="login.html" class="btn-signin">Sign In</a>
+      <a href="signup.html" class="btn-signup">Sign Up</a>
+    </div>
+    <div class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </header>
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="index.html">Home</a>
+    <a href="browse-contests.html">Browse</a>
+    <a href="how-to-play.html">How to Play</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <div class="mobile-auth" id="mobileAuth">
+      <a href="login.html" class="btn-signin">Sign In</a>
+      <a href="signup.html" class="btn-signup">Sign Up</a>
+    </div>
+  </nav>
+
+  <!-- PAGE BANNER -->
+  <div class="page-banner">
+    <p class="page-banner-label">Our Story</p>
+    <h1>About <span>FanLite Play</span></h1>
+    <p>We are an Indian platform, proudly built for Indian fans — bringing the pure joy of cricket back to the people who love it most.</p>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="page-content">
+
+    <!-- STORY SECTION -->
+    <div class="story-section fade-up">
+      <div class="story-text">
+        <div class="section-label">Our Story</div>
+        <h2>Bringing the Game <span>Back to the Fans</span></h2>
+        <p>Cricket in India is not just a sport — it is an emotion. It is the sound of a crowd erupting when a six clears the boundary. It is the argument between friends about who should have been captain. It is the family gathered around a screen, living every ball together.</p>
+        <p>But in recent years, the joy of the game began to be overshadowed by high-risk apps that turned cricket into a financial gamble. We watched as the pure thrill of the sport became tangled with anxiety, risk, and financial pressure. We wanted to change that.</p>
+        <p>FanLite Play was created to bring the pure joy of the game back to the fans. We built a platform where friends, families, and communities can come together to discuss, debate, and celebrate live matches — without any financial risk whatsoever.</p>
+        <p>We believe that the best victories are the ones shared with your crew, and the only thing you should ever risk losing is leaderboard glory. FanLite Play is, and always will be, a 100% free social entertainment platform.</p>
+      </div>
+      <div class="story-visual">
+        <div>
+          <div class="logo-display">
+            <img src="assets/images/logo.png" alt="FanLite Play" />
+          </div>
+          <p class="logo-tagline">India's New World of Entertainment 2026</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MISSION SECTION -->
+    <div class="mission-section fade-up">
+      <div class="mission-label">Our Mission</div>
+      <h2>To Bring Friends &amp; Families <span>Together</span></h2>
+      <p>Our mission is simple: to create a completely free, risk-free social environment where every cricket fan in India can experience the full thrill of the game — together with the people they love. No financial pressure. No risk. Just the pure, unfiltered joy of cricket and community.</p>
+    </div>
+
+    <!-- VALUES SECTION -->
+    <div class="values-section fade-up">
+      <div class="section-label">What We Stand For</div>
+      <h2>Our Core <span>Values</span></h2>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">🆓</div>
+          <h3>Always Free</h3>
+          <p>FanLite Play is and will always be 100% free to use. No hidden charges, no entry fees, no deposits — ever. Our platform is built on the belief that entertainment should be accessible to everyone.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🤝</div>
+          <h3>Community First</h3>
+          <p>We are built for the fans, by fans. Every feature on FanLite Play is designed to bring people closer together — to make cricket a shared experience rather than a solitary one.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🛡️</div>
+          <h3>Safe &amp; Transparent</h3>
+          <p>We are fully transparent about what we are and what we are not. We are an entertainment platform — nothing more, nothing less. Your safety and trust are our highest priority.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🇮🇳</div>
+          <h3>Proudly Indian</h3>
+          <p>FanLite Play is an Indian platform, built in India, for India. We understand the passion of the Indian cricket fan because we are Indian cricket fans ourselves.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🎯</div>
+          <h3>Pure Entertainment</h3>
+          <p>Every contest, every leaderboard, every badge on FanLite Play exists for one reason only — to make watching cricket more fun. That is our sole purpose.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🔒</div>
+          <h3>Privacy Respected</h3>
+          <p>We collect only what is necessary to run the platform and we never sell your data. Your privacy is not a policy — it is a promise we take seriously.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FREE PLEDGE SECTION -->
+    <div class="pledge-section fade-up">
+      <div class="pledge-badge">
+        <div class="pledge-badge-text">100%<br />FREE<br />ALWAYS</div>
+      </div>
+      <div class="pledge-content">
+        <div class="pledge-label">Our Commitment</div>
+        <h2>Free to Play. <span>Free Forever.</span></h2>
+        <p>This is not a marketing slogan — it is a founding principle. FanLite Play was built on the belief that the joy of cricket should never come with a price tag. From the day we launched to the day we are no longer here, participation on FanLite Play will always be completely free.</p>
+        <p>There are no entry fees to join a contest. There are no deposits to make. There are no premium tiers that lock you out of the core experience. Every single user on FanLite Play — from the newest member to the top of the global leaderboard — plays for free.</p>
+      </div>
+    </div>
+
+    <!-- COMPANY SECTION -->
+    <div class="company-section fade-up">
+      <div class="section-label">Business Identity</div>
+      <h2>The Company <span>Behind FanLite Play</span></h2>
+      <div class="company-card">
+        <div class="company-detail">
+          <h4>Registered Company</h4>
+          <p>FanLite Play is proudly operated by <strong>FanLite Play Private Limited</strong>, a company incorporated and registered under the laws of India.</p>
+        </div>
+        <div class="company-detail">
+          <h4>Registered Office</h4>
+          <p>Shop No. 2–5, Sector 19<br />Koparkhairane, Navi Mumbai – 400 709<br />Maharashtra, India</p>
+        </div>
+        <div class="company-detail">
+          <h4>Platform Type</h4>
+          <p>100% Free Social Entertainment Platform. We do not operate as a gaming, gambling, or real-money platform of any kind.</p>
+        </div>
+        <div class="company-detail">
+          <h4>Contact</h4>
+          <p>For all enquiries:<br /><a href="mailto:support@fanliteplay.com" style="color:var(--red);">support@fanliteplay.com</a><br />Response within 2–3 business days.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS SECTION -->
+    <div class="stats-section fade-up">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Free to Play</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">₹0</div>
+          <div class="stat-label">Entry Fee, Always</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">2026</div>
+          <div class="stat-label">Founded in India</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">1</div>
+          <div class="stat-label">Mission: Pure Entertainment</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA SECTION -->
+    <div class="cta-section fade-up">
+      <h2>Join the <span>FanLite Play</span> Community</h2>
+      <p>Be part of India's new world of cricket entertainment. Sign up for free today and experience the game like never before — together.</p>
+      <a href="signup.html" class="cta-btn">Join Free — It's 100% Free</a>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-disclaimer">
+      <strong>Disclaimer:</strong> FanLite Play is a 100% Free entertainment platform. This platform is intended for entertainment purposes only.
+    </div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-col-title">Quick Links</div>
+        <a href="index.html">Home</a>
+        <a href="browse-contests.html">Browse</a>
+        <a href="how-to-play.html">How to Play</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Legal</div>
+        <a href="terms.html">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">My Account</div>
+        <div class="footer-auth" id="footerAuth">
+          <a href="login.html" class="btn-signin">Sign In</a>
+          <a href="signup.html" class="btn-signup">Sign Up</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <img src="assets/images/logo.png" alt="FanLite Play" class="footer-logo" />
+        <span class="footer-copyright">&copy; 2026 FanLite Play. All rights reserved.</span>
+      </div>
+      <a href="mailto:support@fanliteplay.com" class="footer-email">support@fanliteplay.com</a>
+    </div>
+  </footer>
+
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">
+    <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+  </button>
+
+  <script>
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    window.addEventListener('scroll', () => {
+      document.querySelector('header').style.borderBottomColor = window.scrollY > 20 ? 'rgba(232,25,44,0.3)' : 'rgba(232,25,44,0.15)';
+      document.getElementById('scrollTopBtn').classList.toggle('visible', window.scrollY > 300);
+    });
+    function toggleMobileNav() {
+      document.getElementById('mobileNav').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
+    }
+    const obs = new IntersectionObserver(e => e.forEach(x => { if (x.isIntersecting) x.target.classList.add('visible'); }), { threshold: 0.08 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+    function updateAuthState() {
+      const user = localStorage.getItem('flp_user');
+      if (user) {
+        const html = `<a href="dashboard.html" class="btn-signup">Dashboard</a><button class="btn-signin" onclick="logout()">Logout</button>`;
+        ['navAuth','mobileAuth','footerAuth'].forEach(id => { const el = document.getElementById(id); if(el) el.innerHTML = html; });
+      }
+    }
+    function logout() { localStorage.removeItem('flp_user'); window.location.href = 'index.html'; }
+    updateAuthState();
+  </script>
+</body>
+</html>

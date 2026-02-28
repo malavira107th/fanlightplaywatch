@@ -1,0 +1,25 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /.git/
+Disallow: /node_modules/
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: AdsBot-Google-Mobile
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Mobile
+Allow: /
+
+Crawl-delay: 1
+User-agent: *
+Request-rate: 1/1s
+
+Sitemap: https://fanliteplay.com/sitemap.xml

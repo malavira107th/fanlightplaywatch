@@ -1,0 +1,266 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                   RARERZONE DEPLOYMENT CHECKLIST                           ║
+║              Complete Before Submitting to Google Ads                      ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+═══════════════════════════════════════════════════════════════════════════════
+PHASE 1: PRE-DEPLOYMENT (Local Testing)
+═══════════════════════════════════════════════════════════════════════════════
+
+☐ 1.1 All HTML files are created and working
+      - index.html (Homepage)
+      - browse-contests.html
+      - contest-details.html
+      - signup.html, login.html, forgot-password.html
+      - how-to-play.html, about.html, contact.html
+      - terms.html, privacy.html
+      - dashboard.html, 404.html
+
+☐ 1.2 All images are in /assets/images/
+      - logo.png (favicon)
+      - favicon.ico
+      - hero_desktop_1.jpg, hero_desktop_2.jpg, hero_desktop_3.jpg
+      - hero_tablet_1.jpg, hero_tablet_2.jpg, hero_tablet_3.jpg
+      - hero_mobile_1.jpg, hero_mobile_2.jpg, hero_mobile_3.jpg
+      - feature_1.jpg through feature_5.jpg
+
+☐ 1.3 Configuration files created
+      - robots.txt (allows Google bots)
+      - sitemap.xml (lists all pages)
+      - .htaccess (server configuration)
+      - cloudflare-config.md (Cloudflare setup guide)
+
+☐ 1.4 Test all pages locally
+      - Check responsive design (desktop, tablet, mobile)
+      - Test all navigation links
+      - Test forms (signup, login, contact)
+      - Test authentication flow
+      - Verify footer links on every page
+
+☐ 1.5 Check for compliance
+      - No "Real Money" terminology ✓
+      - No "Fantasy" word used ✓
+      - "Entertainment" used instead ✓
+      - RMG disclaimer present on all pages ✓
+      - Terms & Privacy accessible from every page ✓
+      - No Manus branding ✓
+      - Company address and contact info present ✓
+
+═══════════════════════════════════════════════════════════════════════════════
+PHASE 2: HOSTING & DOMAIN SETUP
+═══════════════════════════════════════════════════════════════════════════════
+
+☐ 2.1 Domain registration
+      - Domain: fanliteplay.com (or your chosen domain)
+      - Registrar: [Your registrar]
+      - DNS pointing to hosting server
+
+☐ 2.2 Hosting setup
+      - Upload all files to web server root
+      - Ensure .htaccess file is uploaded
+      - Test site is accessible at https://fanliteplay.com
+
+☐ 2.3 SSL/TLS Certificate
+      - Install SSL certificate (Let's Encrypt recommended)
+      - Force HTTPS redirect
+      - Test: https://fanliteplay.com loads correctly
+
+☐ 2.4 Test file accessibility
+      - https://fanliteplay.com/robots.txt → 200 OK
+      - https://fanliteplay.com/sitemap.xml → 200 OK
+      - https://fanliteplay.com/terms.html → 200 OK
+      - https://fanliteplay.com/privacy.html → 200 OK
+
+═══════════════════════════════════════════════════════════════════════════════
+PHASE 3: CLOUDFLARE CONFIGURATION
+═══════════════════════════════════════════════════════════════════════════════
+
+☐ 3.1 Add domain to Cloudflare
+      - Create Cloudflare account
+      - Add domain: fanliteplay.com
+      - Update nameservers at registrar
+
+☐ 3.2 WAF & Bot Management
+      - Go to Security → Bot Management
+      - Enable Bot Management
+      - Set "Verified Bots" to: ALLOW
+      - Set "Definitely Automated" to: CHALLENGE
+
+☐ 3.3 Firewall Rules
+      - Create rule: Allow AdsBot-Google
+      - Create rule: Allow Googlebot
+      - Create rule: Allow Bingbot
+
+☐ 3.4 Rate Limiting
+      - Disable rate limiting for verified bots
+      - Ensure Google bots are never rate limited
+
+☐ 3.5 SSL/TLS Settings
+      - Encryption Mode: Full (strict)
+      - Always Use HTTPS: ON
+      - Minimum TLS Version: 1.2
+
+☐ 3.6 Caching
+      - Cache Level: Cache Everything (for HTML)
+      - Browser TTL: 1 hour
+      - Edge TTL: 24 hours
+
+═══════════════════════════════════════════════════════════════════════════════
+PHASE 4: GOOGLE SEARCH CONSOLE SETUP
+═══════════════════════════════════════════════════════════════════════════════
+
+☐ 4.1 Create Google Search Console account
+      - Go to: https://search.google.com/search-console
+      - Add property: fanliteplay.com
+
+☐ 4.2 Verify domain ownership
+      - Add DNS TXT record (recommended method)
+      - Or upload HTML verification file
+      - Verify ownership
+
+☐ 4.3 Submit sitemap
+      - Go to Sitemaps section
+      - Submit: https://fanliteplay.com/sitemap.xml
+      - Wait for processing (24-48 hours)
+
+☐ 4.4 Test Googlebot access
+      - Go to Crawl → Fetch as Google
+      - Fetch: https://fanliteplay.com/
+      - Expected result: 200 (Success)
+      - Fetch: https://fanliteplay.com/robots.txt
+      - Expected result: 200 (Success)
+
+☐ 4.5 Check coverage
+      - Monitor Coverage report
+      - Ensure all pages are indexed
+      - Fix any errors or warnings
+
+═══════════════════════════════════════════════════════════════════════════════
+PHASE 5: GOOGLE ADS SETUP & SUBMISSION
+═══════════════════════════════════════════════════════════════════════════════
+
+☐ 5.1 Create Google Ads account
+      - Go to: https://ads.google.com
+      - Create new account
+      - Link to Search Console
+
+☐ 5.2 Set up Google Ads policy compliance
+      - Review: Games & Contests policy
+      - Review: Gambling & Games policy
+      - Ensure your site complies with all policies
+
+☐ 5.3 Create landing page campaign
+      - Campaign Type: Display or Search
+      - Landing Page: https://fanliteplay.com/
+      - Daily Budget: [Your budget]
+      - Target: India
+
+☐ 5.4 Submit for approval
+      - Create first ad campaign
+      - Submit for review
+      - Google will crawl and review (24-48 hours)
+
+☐ 5.5 Monitor approval status
+      - Check Google Ads account daily
+      - Look for approval or rejection reasons
+      - If rejected, fix issues and resubmit
+
+═══════════════════════════════════════════════════════════════════════════════
+PHASE 6: POST-APPROVAL MONITORING
+═══════════════════════════════════════════════════════════════════════════════
+
+☐ 6.1 Monitor Google Search Console
+      - Check indexation status weekly
+      - Monitor for crawl errors
+      - Monitor for security issues
+
+☐ 6.2 Monitor Google Ads account
+      - Check campaign performance daily
+      - Monitor for policy violations
+      - Track conversion metrics
+
+☐ 6.3 Website maintenance
+      - Keep all pages updated
+      - Ensure Terms & Privacy are current
+      - Monitor for broken links (404 errors)
+
+☐ 6.4 Security monitoring
+      - Monitor for malware
+      - Keep SSL certificate current
+      - Monitor for suspicious traffic
+
+═══════════════════════════════════════════════════════════════════════════════
+COMMON ISSUES & SOLUTIONS
+═══════════════════════════════════════════════════════════════════════════════
+
+ISSUE: Google Ads approval rejected with "Unverified Business"
+SOLUTION:
+- Ensure company address is visible on About page
+- Add business registration details to Terms
+- Add contact email and support hours to Contact page
+- Resubmit after 24 hours
+
+ISSUE: Google Ads approval rejected with "Destination Not Working"
+SOLUTION:
+- Test all links on your site
+- Ensure 404.html is properly configured
+- Check .htaccess file for URL rewriting issues
+- Test with: curl -H "User-Agent: Googlebot" https://fanliteplay.com
+
+ISSUE: Google Ads approval rejected with "Gambling/RMG Policy Violation"
+SOLUTION:
+- Remove any words: "bet", "wager", "odds", "prize pool", "cash", "money"
+- Add explicit RMG disclaimer to footer
+- Ensure "100% Free" is visible on every page
+- Remove any monetary symbols (₹, $)
+- Resubmit after 48 hours
+
+ISSUE: Googlebot can't crawl my site
+SOLUTION:
+- Check Cloudflare WAF rules - whitelist Google bots
+- Check robots.txt - ensure it allows /
+- Check .htaccess - ensure it doesn't block bots
+- Test: curl -H "User-Agent: Googlebot" https://fanliteplay.com/robots.txt
+
+═══════════════════════════════════════════════════════════════════════════════
+FINAL CHECKLIST BEFORE GOING LIVE
+═══════════════════════════════════════════════════════════════════════════════
+
+☐ All pages are live and accessible
+☐ HTTPS is enforced (no HTTP)
+☐ robots.txt returns 200 OK
+☐ sitemap.xml returns 200 OK
+☐ All images load correctly
+☐ All links work (no 404s)
+☐ Footer links present on every page
+☐ RMG disclaimer visible
+☐ Company address visible
+☐ Contact email visible
+☐ Terms & Privacy pages complete
+☐ No "Real Money" terminology
+☐ No "Fantasy" word used
+☐ "Entertainment" used throughout
+☐ No Manus branding
+☐ Cloudflare configured correctly
+☐ Google bots whitelisted
+☐ Sitemap submitted to Google Search Console
+☐ Domain verified in Google Search Console
+☐ Ready for Google Ads submission
+
+═══════════════════════════════════════════════════════════════════════════════
+
+ESTIMATED TIMELINE:
+- Day 1: Domain setup, file upload, Cloudflare config
+- Day 2: Google Search Console setup, sitemap submission
+- Day 3-4: Google crawl and indexation
+- Day 5: Google Ads account setup
+- Day 6-7: Google Ads review and approval
+- Day 8+: Campaign launch and monitoring
+
+SUPPORT:
+If you face any issues, refer to:
+1. cloudflare-config.md (Cloudflare setup guide)
+2. Google Ads Help Center: https://support.google.com/google-ads
+3. Google Search Console Help: https://support.google.com/webmasters
+
+═══════════════════════════════════════════════════════════════════════════════
